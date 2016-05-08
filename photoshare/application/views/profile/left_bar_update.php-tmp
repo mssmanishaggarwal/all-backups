@@ -1,0 +1,190 @@
+<link rel="stylesheet" href="<?php echo base_url()?>/css/social.css">
+<?php
+$session_data = $this->session->userdata('logged_in');
+$data         = $this->logmodel->get_user_data($session_data['user_id']);
+//echo '<pre>';
+print_r($data);
+echo '</pre>';
+?>
+<article class="registration-page-wrap clearfix">
+  <section class="registration-page-inner clearfix">
+    <div class="profile-heder-update">
+      <a href="<?php echo base_url()?>profile/news/"><div class="reg-top-l">Hi, <?php echo $data[0]['f_name'];?></div></a>
+      </div>
+  <!--  <div class="header-addfriend-update">
+      <h3>Looking For </h3>
+      <select>
+        <option value="">Other Update</option>
+        <option value="">Simple Map Update</option>
+        <option value="">Trip Map Update</option>
+        <option value="">Multimap Update</option>
+      </select>
+   </div> -->
+
+      <div class="left-bar">
+        <div class="friend-list-block">
+            <div class="profile-picture">
+
+              <img src="<?php echo profile_pic_setter1($data[0]['profile_pic']);?>" height="150" width="150"/>
+              <div class="cnhg">Change Image</div>
+              <input type="file" name="profileimage" class="chng_profileimage">
+
+
+            </div>
+            <div class="profile-info">
+              <p>DOB:<?php $yrdata = strtotime($this->profile_model->profile_info('birth_day', $data[0]['id']));
+if ($yrdata != '') {echo date('jS F Y', $yrdata);}
+?></p>
+              <p>Contact Number:<?php echo $this->profile_model->profile_info('contact_no', $data[0]['id']);?></p>
+              <p>Register From: <?php $yrdata = strtotime($this->profile_model->profile_info('user_register', $data[0]['id']));
+if ($yrdata != '') {echo date('jS F Y', $yrdata);}
+?></p>
+            </div>
+            <div style="clear:both;"></div>
+           <h1 class="small-head">Friend List</h1>
+<?php $accept_frnd = $this->profile_model->accepted_frnd_request($data[0]['id']);
+$count             = 1;
+//print_r($accept_frnd);
+foreach ($accept_frnd as $val) {
+	$fr_id = $this->logmodel->get_userid_by_mail($val['email']);
+	//echo ($fr_id);
+	?>
+	              <a href="<?php echo base_url()?>profile/friend/?frs=<?php echo $fr_id;?>"><div class="single-friend-block">
+	                <img src="<?php profile_pic_setter1($val['profile_pic']);?>" height="70" width="65"/>
+	                <h1 class="frn-name"><?php echo $val['f_name'].' '.$val['l_name'];?></h1>
+	              </div></a>
+	<?php }
+?>
+<div class="clr"></div>
+
+        </div>
+        <h1 class="small-head">Pending Request</h1>
+<?php $pending_frnd = $this->profile_model->pending_frnd_request($data[0]['id']);
+$count              = 1;
+foreach ($pending_frnd as $val) {
+	?>
+	        <div class="search-block-pending-request">
+	              <a href="<?php echo base_url()?>profile/friend/?frs=<?php echo $val['id'];?>" class="linktofriend">
+	              <div class="search-prof-pic"><img src="<?php profile_pic_setter1($val['profile_pic']);?>" height="30" width="30" class="search-profiler"/>
+	              <h1 class="search-prof-name" id="afterd_<?php echo $count;?>"><?php echo $val['f_name'];
+	?></h1>
+	              </div>
+	              </a>
+	              <a href="#" data-userid="<?php echo $val['id']?>" data-count="<?php echo $count;?>" data-currentuserid="<?php echo $data[0]['id'];?>" class="addfrnd-left" id="adfrdf_<?php echo $count;?>">
+	              <div class="accept-friend">Accept It</div></a>
+	              <div class="clr"></div>
+	            </div>
+	<?php $count++;}
+?>
+<div class="clr"></div>
+         <h1 class="small-head">Sent Request</h1>
+<?php $pending_frnd = $this->profile_model->sent_frnd_request($data[0]['id']);
+$count              = 1;
+foreach ($pending_frnd as $val) {
+	?>
+	        <div class="search-block-sent-request">
+	              <a href="<?php echo base_url()?>profile/friend/?frs=<?php echo $val['id'];?>" class="linktofriend">
+	              <div class="search-prof-pic"><img src="<?php profile_pic_setter1($val['profile_pic']);?>" height="30" width="30" class="search-profiler"/>
+	              <h1 class="search-prof-name" id="afterd_<?php echo $count;?>"><?php echo $val['f_name'];
+	?></h1>
+	              </div>
+	              </a>
+	              <div class="sent-friend">Request Sent</div>
+	              <div class="clr"></div>
+	              </div>
+
+	<?php $count++;}
+?>
+<div class="clr"></div>
+        </div>
+      </div>
+
+<?php
+function profile_pic_setter1($pic_url) {
+	if ($pic_url == '') {
+		echo 'http://gymkhana.iitb.ac.in/~sports/images/profile.png';
+	} else {
+		echo $pic_url;
+	}
+}
+
+?>
+<style type="text/css">
+.chng_profileimage{
+ display:none;
+}
+.click_change{
+    position: absolute;
+    background-color: black;
+    opacity: 0.6;
+    width: 9.7%;
+    height: 25px;
+    color: white;
+    margin-top: -38px;
+    padding: 5px 10px;
+    display:block;
+    cursor:pointer;
+}
+.cnhg{
+display:none;
+}
+</style>
+<script>
+  $(document).ready(function(){
+    $(document).on('mouseenter','.profile-picture',function(){ //alert();
+      $('.cnhg').show();
+      $('.cnhg').addClass('click_change');
+    });
+    $(document).on('mouseleave','.profile-picture',function(){ //alert();
+      $('.cnhg').removeClass('click_change');
+      $('.cnhg').hide();
+    });
+    $(document).on('click','.click_change',function(){ //alert();
+      $('.chng_profileimage').trigger('click');
+    });
+    $(document).on('change','.chng_profileimage',function(){
+      var file = $('.chng_profileimage')[0].files[0],
+        formData = new FormData();
+       // console.log(file);
+      formData.append('file', file);
+      /*===========================================*/
+      switch(file.type){
+        case 'image/jpeg': case 'image/gif': case 'image/jpg': case 'image/png':
+            call_the_ajax();
+            readURL(this);
+            break;
+        default:
+            alert("Profile picture accept a .jpeg/.gif/.jpg/.png file only.");
+            break;
+      }
+
+      /*===========================================*/
+      function call_the_ajax(){
+       // reader.readAsDataURL(input.files[0]);
+      $.ajax('change_profile_image', {
+          method: 'POST',
+          contentType: false,
+          processData: false,
+          data: formData
+      })
+
+      .then(function success(userInfo) {
+        // userInfo will be a JavaScript object containing properties such as
+        // name, age, address, etc
+       });
+      }//=========end of call_the_ajax()
+    })
+  });
+
+ function readURL(input) { //alert();
+
+            var reader = new FileReader();
+           // console.log(reader);
+            reader.onload = function (e) {
+                $('.profile-picture >img').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+
+    }
+</script>

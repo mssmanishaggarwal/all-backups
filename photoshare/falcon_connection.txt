@@ -1,0 +1,3 @@
+DB_name: falconc4_photoshare
+DB_usr_name: falconc4_ps
+DB_PASSWORD : 2gp]58E0Il5U

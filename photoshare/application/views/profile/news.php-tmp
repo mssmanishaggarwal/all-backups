@@ -1,0 +1,95 @@
+ <?php
+$session_data = $this->session->userdata('logged_in');
+$data         = $this->logmodel->get_user_data($session_data['user_id']);
+?>
+<div class="middle-bar">
+        <h1 class="small-head">News Feed</h1>
+<?php
+$arr          = array();
+$news_feed_id = $this->profile_model->all_user_id($data[0]['id']);
+foreach ($news_feed_id as $value) {
+	//print_r($value['update_id']);
+	array_push($arr, $value['update_id']);
+}
+$user_ids = implode(',', $arr);
+echo "<pre>";
+//print_r($news_feed_id);
+echo "</pre>";
+//print_r($user_ids);
+if ($user_ids != '') {
+	//$p = '22,21,20';
+	$news_feed = $this->profile_model->get_news_feed($user_ids);
+	///echo "<pre>";
+	//print_r($user_ids);
+	//echo "</pre>";
+	foreach ($news_feed as $key => $val) {
+		?>
+					   <div class="news-block">
+					       <div>
+		                    <h3 class="prf-name">
+		                    <a href="<?php echo base_url()?>profile/friend/?frs=<?php echo $val['user_id_fk']?>">
+		<?php echo $this->profile_model->profile_name('f_name', $val['user_id_fk'])?>
+		                    <?php echo $this->profile_model->profile_name('l_name', $val['user_id_fk'])?>
+		                    </a>
+		                    <span class="dated">Dated : <?php $yrdata = strtotime($val['post_date']);
+		echo date('jS F Y', $yrdata);?></span></h3>
+
+
+		                    </div>
+					              <div class="post-blocks" >
+		<?php echo $val['update'];?>
+		<!--Start Map Update Block-->
+		<?php if ($val['map_ac_id'] != 0 || $val['map_ac_id'] != '') {?>
+						         <div class="map_link_div">
+			                      <a href="<?php echo base_url()?>external/map/<?php map_wise_url($val['map_type']);?>/<?php echo $val['user_id_fk']?>/<?php echo $val['map_ac_id']?>" target="_blank" class="map_link">
+			                        <div class="map_link_img">
+			                          <img src="https://lh6.googleusercontent.com/-v3wc7AZwlQg/AAAAAAAAAAI/AAAAAAAAAFI/vkXy7VPac3A/photo.jpg" height="70" width="70">
+			                        </div>
+			                        <div class="map_link_content">
+			<?php echo $val['map_caption']?>
+			</div>
+			                         <div class="clr"></div>
+			                        </a>
+			                     </div>
+			<?php }
+		?>
+		<!-- End of Map Update Block-->
+
+
+
+					              </div>
+
+					        <div class="clr"></div>
+					   </div>
+
+		<?php
+	}//end of foreach
+} else {?>
+	<div class="news-block">
+	              <p>Yet Not any News Feed ...</p>
+	            </div>
+	<?php }// end of if ?>
+<div class="clr"></div>
+      </div>
+
+<?php
+function map_wise_url($map_Type) {
+	switch ($map_Type) {
+		case 'map':
+			echo 'view_simple_map';
+			break;
+		case 'trip':
+			echo 'view_trip';
+			break;
+		case 'multi_map':
+			echo 'view_multi_map';
+			break;
+		default:
+			# code...
+			break;
+	}
+}
+
+?>
+
+
