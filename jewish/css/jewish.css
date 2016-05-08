@@ -1,0 +1,108 @@
+/* CSS Document */
+.loginBox {
+  border: 1px #ccc solid;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-weight: bold;
+  font-family: 'SegoeUIRegular';
+}
+.ban {
+  text-align: center;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  /*background-color: #eee;*/
+  background: url(../images/top-nav-bg.jpg) top left repeat-x;
+  font-family: 'SegoeUIRegular';
+}
+ .loginBox p {
+  margin: 10px;
+  font-family: 'SegoeUIRegular';
+}
+.loginBox p label {
+  display: -moz-inline-stack;
+  display: inline-block;
+  width: 342px;
+  text-align: right;
+  font-family: 'SegoeUIRegular';
+}
+.txt{
+  font-family: 'SegoeUIRegular' !important;	
+}
+.loginBox p input {
+  font-family: 'segoe_uibold';
+  color: #44484d;
+  width: 250px;
+  height: 27px;
+}
+.loginBox p button {
+  padding: 1px 6px;
+  font-family: 'SegoeUIRegular';
+  border:1px solid #57e2ca;
+  background-color:transparent;
+  color:#57e2ca;
+  font-weight:bold;
+  padding:4px;
+}
+.boxConjunction {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1em;
+  font-family: 'SegoeUIRegular';
+}
+.alert{
+	color:red;
+	font-weight:bold;
+	font-family: 'SegoeUIRegular';
+	margin-left:270px;
+}
+.explanation{
+	  font-family: 'SegoeUIRegular';
+	  color:#57e2ca;
+	  font-weight:bold;
+	  cursor:pointer;
+}
+#reset_pwd{
+	display:none;
+}
+.alert_gr{
+color:green;
+	font-weight:bold;
+	font-family: 'SegoeUIRegular';
+	margin-left:270px;
+}
+section.body {
+ /* padding: .5em 8px 2em;
+  width: 980px;
+  margin: 0 auto;
+  height: 90%;
+  min-height: 600px;*/
+}
+.create_post{
+	position:absolute;
+	margin-left: 800px;
+  margin-top: -34px;
+   font-family: 'segoe_uibold';
+   text-transform:uppercase;
+}
+.create_post >a{color:#57e2ca;
+}
+.formnote > b{
+	color:#57e2ca;
+}
+#vot{
+  border-bottom: 1px solid #ccccc8;
+}
+.center_align{
+	margin-left:31.5%;
+	margin-top:20%;
+	margin-bottom:20%;
+	border: 1px solid #ccccc8;
+	border-radius:10px 10px 10px 10px;
+	width:38%;
+	padding:5px;
+}
+.center_align >p{
+	text-align:center;
+}

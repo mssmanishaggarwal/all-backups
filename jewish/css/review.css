@@ -1,0 +1,131 @@
+/* STAR RATING */
+	.star-rating{
+		list-style:none;
+		margin-left:5px!important;
+		padding:0px;
+		width: 125px;
+		height: 25px;
+		position: relative;
+		background: url(../images/alt_star.gif) top left repeat-x;		
+	}
+	.star-rating li{
+		padding:0px;
+		margin:0px;
+		/*\*/
+		float: left;
+		/* */
+	}
+	.star-rating li a{
+		display:block;
+		width:25px;
+		height: 25px;
+		text-decoration: none;
+		text-indent: -9000px;
+		z-index: 20;
+		position: absolute;
+		padding: 0px;
+	}
+	.star-rating li a:hover{
+		background: url(../images/alt_star.gif) left bottom;
+		z-index: 2;
+		left: 0px;
+	}
+	.star-rating a.one-star{
+		left: 0px;
+	}
+	.star-rating a.one-star:hover{
+		width:25px;
+	}
+	.star-rating a.two-stars{
+		left:25px;
+	}
+	.star-rating a.two-stars:hover{
+		width: 50px;
+	}
+	.star-rating a.three-stars{
+		left: 50px;
+	}
+	.star-rating a.three-stars:hover{
+		width: 75px;
+	}
+	.star-rating a.four-stars{
+		left: 75px;
+	}	
+	.star-rating a.four-stars:hover{
+		width: 100px;
+	}
+	.star-rating a.five-stars{
+		left: 100px;
+	}
+	.star-rating a.five-stars:hover{
+		width: 125px;
+	}
+	.star-rating li.current-rating{
+		background: url(../images/alt_star.gif) left center;
+		position: absolute;
+		height: 25px;
+		display: block;
+		text-indent: -9000px;
+		z-index: 1;
+	}
+	
+	.star-rating li.one-rating{
+		background: url(../images/alt_star.gif) left center;
+		position: absolute;
+		height: 25px;
+		display: block;
+		text-indent: -9000px;
+		z-index: 1;
+	}
+	a.tooltip {outline:none; }
+a.tooltip strong {line-height:30px;}
+a.tooltip:hover {text-decoration:none;} 
+a.tooltip span.els {
+     z-index: 10;
+  display: none;
+  padding: 14px 20px;
+  margin-top: 2%;
+  margin-left: 17%;
+  width: 20%;
+  line-height: 16px;
+}
+a.tooltip:hover span.els {
+    display:inline; position:absolute; color:#111;
+    border:1px solid #DCA; background:#fffAF0;}
+.callout {z-index:20;position:absolute;top:30px;border:0;left:-12px;}
+a.tooltip span.els 
+{
+    border-radius:4px;
+    box-shadow: 5px 5px 8px #CCC;
+}
+.els >strong{
+	color:#57e2ca;
+}
+<!--============-->
+.blocky{
+	  
+}
+ul.graph
+{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	
+}
+	
+ul.graph li
+{
+	margin-bottom: .5em;
+	padding: .2em;
+	background: #600;
+	color: #fff;
+}
+
+	.usernm{	
+	  width: 743px;
+	  float: right;
+	  color: #57e2ca;
+	  font-weight: bold;
+	  margin-top: -15px;
+	}
+
