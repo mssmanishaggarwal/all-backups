@@ -1,0 +1,461 @@
+<?php
+
+namespace App\Http\Controllers\admin;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\Models\Advertisement;
+use App\Models\AdvertisementTranslation;
+use App\Helper\Languagehelper;
+use DB;
+use Lang;
+use File;
+use Validator;
+
+
+class AdvertisementController extends Controller
+{
+	
+   public function __construct()
+   {
+      $this->middleware('admins');
+   }
+   public function index(Request $request)
+   {
+      
+      $advertisement_title  = Input::get('advertisement_title');
+      $position_id  = Input::get('position_id');
+      $search_with_date  = Input::get('search_with_date');
+      if($search_with_date == 'P')
+      	$search_item = 'adv.start_date';
+      elseif($search_with_date == 'E')
+      	$search_item = 'adv.end_date';
+      else
+      	$search_item = '';      
+            
+      $todo  = Input::get('todo');
+      $sorting  = Input::get('sorting');      
+      if($request->wantsJson() || $request->isJson()){        
+         if($todo == 'search')
+         {
+         	$search_start_date  = dateFormatDB(Input::get('search_start_date'));
+      		$search_end_date  = dateFormatDB(Input::get('search_end_date'));
+            
+            $query = DB::table('advertisement as adv');
+            $query->select('*');
+            $query->join('advertisement_translation as adtrans', 'adv.id', '=', 'adtrans.advertisement_id');
+            $query->where('adtrans.advertisement_title','like','%'.$advertisement_title.'%');
+            if($position_id !='')
+            $query->where('adv.position_id',$position_id);
+            
+            $query->where('adtrans.language_id',env('default_language'))  ;
+            if($search_with_date != '' && $search_start_date != '' && $search_end_date !='')
+            $query->whereBetween($search_item, array( $search_start_date , $search_end_date)); 
+                                 
+            $advertisement = $query->get();
+            
+            
+           /* $advertisement = DB::raw('SELECT * FROM ev_advertisement as adv
+            						JOIN ev_advertisement_translation as adtrans on adv.id = adtrans.advertisement_id
+            						WHERE'.$where 
+            						')';*/
+            
+         }
+         elseif($todo=='sort_asc'){
+            
+            $advertisement = DB::table('advertisement as adv')
+            ->select('*')
+            ->join('advertisement_translation as adtrans', 'adv.id', '=', 'adtrans.advertisement_id')
+            ->where('adtrans.language_id',env('default_language'))
+            ->orderBy($sorting, 'asc')->get();
+            
+            
+            
+         }
+         elseif($todo=='sort_desc'){
+            $advertisement = DB::table('advertisement as adv')
+            ->select('*')
+            ->join('advertisement_translation as adtrans', 'adv.id', '=', 'adtrans.advertisement_id')
+            ->where('adtrans.language_id',env('default_language'))
+            ->orderBy($sorting, 'desc')->get();
+            
+         }
+         else
+         {
+            $advertisement = DB::table('advertisement as adv')
+            ->select('*')
+            ->join('advertisement_translation as adtrans', 'adv.id', '=', 'adtrans.advertisement_id')
+            ->where('adtrans.language_id',env('default_language'))            
+            ->get();
+         }
+         
+         foreach($advertisement as $key => $adv)
+         {
+		 	$advertisement[$key]->start_date =  dateFormat($adv->start_date);
+		 	$advertisement[$key]->end_date =  dateFormat($adv->end_date);		 	
+		 }
+       
+         return response()->json($advertisement);
+      }
+      return view('admin.advertisement.index', ['title' => 'Advertisement','heading' => 'Advertisement']);
+   }
+   
+   public function create()
+   {
+   		$language = Languagehelper::getlanguage();
+   		return view('admin.advertisement.advertisement',['language' => $language,'heading' => 'Advertisement','subHeading' => 'Add Advertisement', 'saveBtn' => 'Add']);
+   }
+   
+   public function show($id='',Request $request)
+   {
+	$language = Languagehelper::getlanguage();
+      /*$clients = DB::table('client')
+         ->where('id',$id)
+         ->get();*/
+         
+      $advertisement = DB::table('advertisement as adv')
+            ->select('*')
+            ->join('advertisement_translation as adtrans', 'adv.id', '=', 'adtrans.advertisement_id')
+            ->where('adv.id',$id)
+            ->get();
+       
+       foreach($advertisement as $key => $adv)
+         {
+		 	$advertisement[$key]->start_date =  dateFormat($adv->start_date);
+		 	$advertisement[$key]->end_date =  dateFormat($adv->end_date);		 	
+		 }
+
+      if($request->wantsJson() || $request->isJson()){
+         return response()->json($advertisement);
+      }
+
+      return view('admin.advertisement.advertisement', ['title' => 'Update Client','language' => $language,'heading' => 'Advertisement','subHeading' => 'Update Advertisement', 'saveBtn' => 'Save']);
+   }
+
+   public function store(Request $request)
+   {
+
+      /*if($request->wantsJson() || $request->isJson()) {
+         try{*/
+         	$file = Input::File('advertisement_image');
+         	         	
+         	$rules = array('file' => 'required|mimes:png,gif,jpeg'); //'required|mimes:png,gif,jpeg,txt,pdf,doc'
+			$validator = Validator::make(array('file' => $file), $rules);
+			if ($validator->passes()) {
+				$destinationPath = 'public/uploads/
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				';
+				$filename = $file->getClientOriginalName();
+				$upload_success = $file->move($destinationPath, $filename);
+         	$start_date = dateFormatDB($request->start_date);                
+         	$end_date = dateFormatDB($request->end_date);                    
+            $advertisementId = DB::table('advertisement')->insertGetId(
+						    [
+						     'advertisement_link' => $request->advertisement_link,
+						     'advertisement_image' => $filename,
+						     'position_id' => $request->position_id,
+						     'is_active' => $request->is_active,						     
+						     'start_date' => $start_date,
+						     'end_date' => $end_date
+						     ]
+						);
+			
+			DB::table('advertisement_translation')->insert([
+				    ['advertisement_id' =>$advertisementId, 'language_id' =>1, 'advertisement_title' => $request->advertisement_title_1],
+				    ['advertisement_id' =>$advertisementId, 'language_id' =>2, 'advertisement_title' => $request->advertisement_title_2]
+				]);
+            return response()->json(['status'=>'success', 'data'=>$advertisementId]);
+           // return redirect('admin/advertisement');
+            }
+        /*}
+         catch(\Illuminate\Database\QueryException $e) {
+            return response()->json(['status'=>'error','code'=>500, 'data'=>'database error','message'=>Lang::get('messages.query_exception'),
+               'errorInfo' => $e->errorInfo[2]]);
+         }
+      }*/
+   }
+   public function update($id,Request $request)
+   {
+
+      if($request->wantsJson() || $request->isJson()) {
+         try{
+            //$data = Client::findOrFail($id);
+           // $data->update($request->all());
+          	$start_date = dateFormatDB($request->start_date);                
+         	$end_date = dateFormatDB($request->end_date);
+            $data = DB::table('advertisement')
+            ->where('id', $id)
+            ->update([
+            			'advertisement_link' => $request->advertisement_link,
+					     'position_id' => $request->position_id,
+					     'is_active' => $request->is_active,						     
+					     'start_date' => $start_date,
+					     'end_date' => $end_date
+            		 ]);
+            
+            DB::table('advertisement_translation')
+            ->where('advertisement_id', $id)
+            ->where('language_id', 1)
+            ->update(['advertisement_title' => $request->advertisement_title_1]);
+            
+            DB::table('advertisement_translation')
+            ->where('advertisement_id', $id)
+            ->where('language_id', 2)
+            ->update(['advertisement_title' => $request->advertisement_title_2]);
+            
+            return response()->json(['status'=>'success', 'data'=>$data]);
+         }catch(\Illuminate\Database\QueryException $e) {
+            return response()->json(['status'=>'error','code'=>500, 'data'=>'database error','message'=>Lang::get('messages.query_exception')]);
+         }
+      }
+   }
+   public function delete($id,Request $request)
+   {
+   if($request->isJson() || $request->wantsJson()){            
+            try {        
+                
+                /*$max_order = DB::table('advertisement')->where('order_id', DB::raw("(select max(`order_id`) from ev_advertisement)"))->get();
+                $min_order = DB::table('advertisement')->where('order_id', DB::raw("(select min(`order_id`) from ev_advertisement)"))->get();
+                $order = DB::table('advertisement')->where('id',$id)->get();
+                 
+                if($order[0]->order_id==$min_order[0]->order_id) {
+                  
+                   DB::table('advertisement')
+                  ->where('order_id','>', $order[0]->order_id)
+                  //->update(['order_id' => 'order_id-1']);
+                  ->decrement('order_id');
+                
+                }
+                elseif($order[0]->order_id>$min_order[0]->order_id && $order[0]->order_id<$max_order[0]->order_id) {
+                
+                 DB::table('advertisement')
+                  ->where('order_id','>', $order[0]->order_id)
+                  ->decrement('order_id');
+                   
+                }*/
+                $query =  DB::table('advertisement_translation');
+                $findRow1 = $query->where('advertisement_id',$id)->get();
+                
+                foreach($findRow1 as $row):
+                DB::table('advertisement_translation')->where('advertisement_translation_id', $row->advertisement_id)->delete();        
+                endforeach;     
+                          
+                $findRow2 = Advertisement::findOrFail($id);            
+                $delete2 = $findRow2->delete();
+                return response()->json([
+                    'status' => 'success', 
+                    'data' => $delete2
+                ]);
+            }catch(Exception $e){
+                return response()->json([
+                    'status'=>'error',
+                    'code'=>500,
+                    'data' => Lang::get('messages.response_error_db'),
+                    'message'=>Lang::get('messages.query_exception'),                    
+                ]);
+            }                
+        }
+   }
+   
+   /*public function showLanguage(Request $request)
+   {   	
+	$language = Languagehelper::getlanguage();
+      if($request->wantsJson() || $request->isJson()){
+         return response()->json($language);
+      }
+   }*/
+   
+   public function getPosition(Request $request)
+   {
+   		$position = DB::table('position')
+			->select('*')
+			->get();
+		if ($request->wantsJson() || $request->isJson()) {
+			return response()->json($position);
+		}
+   }   
+   
+}

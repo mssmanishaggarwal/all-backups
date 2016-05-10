@@ -1,0 +1,76 @@
+
+    
+    /* Standard Navigation */
+    nav { display: block; float: left; margin:0 -12px 0 0; }
+        nav a.mobile_handle { display: none; }
+        nav ul { display: block; margin:0;}
+        nav ul li { display: inline; position: relative; float: left; list-style: none; }
+          nav ul a, nav ul a:link, nav ul a:visited { display: block; float: left; padding:32px 18px 16px; margin: 0; line-height: 10px; color: #000; font-weight: 300;}
+          nav > ul > li:hover a, nav > ul a:hover, nav > ul a:active, nav > ul > li.active a { text-decoration: none; color:#f36d21; }
+		  nav > ul > li::before{ background: #f36d21 none repeat scroll 0 0; content: ""; height: 3px; left: 0; opacity: 0; position: absolute; top: 0;    transition: width 0.4s ease-in-out 0s, opacity 0.4s ease-in-out 0s; width: 0%;}
+		  nav > ul > li:hover::before, nav > ul > li.active::before{ width:100%; opacity:1; height:3px;}
+        /* Sub-Nav */
+        nav ul ul { display: none; position: absolute; top:58px; left: 7px; width: 120px; padding: 0px; background-color: #000; background-color: rgba(248, 215, 17, 1); }
+          nav ul ul li { display: block; float: none; clear: both; }
+          nav ul ul a, nav ul ul a:link, nav ul ul a:visited { display: block; float: none; border: 0; padding: 15px 5px; margin: 0; color: #333; }
+          nav ul ul a:hover, nav ul ul a:active { text-decoration:none; background-color: #dcbd03; }
+          
+              /* Third-Level */
+                nav ul ul ul { top: 0; left: 125px; }
+
+/* CONTENT */
+
+    #main { margin: 35px 0; }
+
+/* FOOTER */
+
+    footer { color: #666; }
+    
+/* MEDIA QUERY */
+@media (min-width: 768px) and (max-width: 991px) {
+nav ul a, nav ul a:link, nav ul a:visited{ padding: 20px 17px 16px;}
+nav ul ul{ top: 48px;}
+}
+
+@media (max-width: 767px){
+nav ul a, nav ul a:link, nav ul a:visited { display: block; position: relative; float: none; padding: 15px 10px; clear: both; }
+nav ul ul{ top: 40px;}
+}
+
+
+    @media (max-width: 650px){
+        
+        body { margin-top: 0px; } /* Nudge margin-top to leave room for handle */
+        
+        nav { position: absolute; float: none; margin: 0; padding: 3px 0 0; top: 0; left: 0; width: 100%; z-index: 901;}
+        nav.upnext { z-index: 903 !important;}
+        
+        nav a.mobile_handle {
+  background: #f36d21 url("../../images/site/mobmenu.png") no-repeat scroll left top;
+  display: block;
+  float: right;
+  margin-right: 15px;
+  padding: 10px;
+  text-align: center;
+  text-indent: -9999px;
+  width: 40px; cursor: pointer; height:40px;
+}
+        
+        nav > ul { display: none; box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); }
+        nav ul li { display: block; position: relative; float: none; padding: 0; background: #f8d711; border-top: 1px solid #dcbd03; }
+        nav ul a, nav ul a:link, nav ul a:visited { display: block; position: relative; float: none; padding: 15px 10px; clear: both; }
+            
+        /* Second Level */
+        
+        nav ul ul { display: none; position: relative; width: 100%; top: 0; left: 0; margin: 0; padding: 0; background: none; border-bottom: 2px solid #999; z-index: 999999; }
+            nav ul ul a, nav ul ul a:link, nav ul ul a:visited { color: #000; padding: 15px 10px 15px 25px; }
+            
+        /* Third level */
+        nav ul ul ul { top: 0; left: 0; z-index: 999999; }
+            nav ul ul ul a, nav ul ul ul a:link, nav ul ul ul a:visited { padding: 15px 10px 15px 45px; }
+            
+        nav .sub_nav { position: absolute; right: 0; top: 0; width: 10%; padding: 15px 20px; margin: 0; cursor: pointer; }
+        nav .arrow_up { float: right; width: 0; height: 0; padding: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #000; }
+        nav .arrow_down { float: right; width: 0; height: 0; padding: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 10px solid #f36d21; }
+    
+    }

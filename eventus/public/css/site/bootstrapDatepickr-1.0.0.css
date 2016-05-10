@@ -1,0 +1,65 @@
+.bootstrapDatepickr-cal{
+	z-index: 1000;
+	position:absolute;
+	width: 100%;
+	left: -104px !important;
+}
+.booking-listing .bootstrapDatepickr-cal {
+  left: -75px !important;
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+}
+
+.bootstrapDatepickr-today{
+	background-color: #f0ad4e;
+	border-color: #eea236;
+	color: #fff;
+	cursor: pointer;
+}
+
+.bootstrapDatepickr-day{
+	cursor: pointer;
+}
+
+.bootstrapDatepickr-days{
+	font-weight: 700;
+}
+
+.bootstrapDatepickr-next-month, .bootstrapDatepickr-prev-month{
+	cursor: pointer;
+}
+
+.bootstrapDatepickr-selected_date{
+	color: #fff;
+	background-color: #f36d21;
+	border-color: #2e6da4;
+}
+
+.bootstrapDatepickr-next-month:hover, .bootstrapDatepickr-prev-month:hover, .bootstrapDatepickr-day:hover{
+	background-color: #f5f5f5;
+}
+
+.bootstrapDatepickr-hidden{
+	display: none;
+}
+
+#bootstrapDatepickr-table{
+	background-color: #fff;
+	text-align: center;
+}
+
+.bootstrapDatepickr-header th{
+	text-align: center;
+	font-weight: 700;
+}
+@media (max-width: 550px){
+.bootstrapDatepickr-cal {
+  left: -124px !important
+}
+}
+@media (max-width: 550px){
+.bootstrapDatepickr-cal, .booking-listing .bootstrapDatepickr-cal {
+  left: auto !important;
+}
+}
